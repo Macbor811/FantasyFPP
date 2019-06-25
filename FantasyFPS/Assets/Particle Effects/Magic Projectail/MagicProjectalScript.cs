@@ -5,7 +5,6 @@ using UnityEngine;
 public class MagicProjectalScript : MonoBehaviour
 {
     public ParticleSystem sparks;
-    public GameObject projectile;
 
     private bool coliided=false;
     public float force = 10.0f;
@@ -20,39 +19,25 @@ public class MagicProjectalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!colision())//move forward while emiting
+        if (!coliided)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime*20);
+            transform.Translate(Vector3.forward * Time.deltaTime * 20);
             sparks.Emit(10);
         }
         else
         {
-            if(coliided==false)
+            if (sparks.particleCount < 10)
             {
-                sparks.Emit(1000);//short particles burst
-                coliided = true;
+                Destroy(gameObject);//kill projectile
             }
             else
             {
-                if(sparks.particleCount<10)
-                {
-                    Destroy(gameObject);//kill projectile
-                }
-                else
-                {
-                    magneticBehavior();//draw particles to projectile
-                }
-
+                magneticBehavior();//draw particles to projectile
             }
+
         }
     }
-    private bool colision()
-    {
-        if (transform.position.x < 10)
-            return false;
-        else
-            return true;
-    }
+
     private void magneticBehavior()
     {
         ParticleSystem.Particle[] particles=new ParticleSystem.Particle[sparks.particleCount];
@@ -69,5 +54,11 @@ public class MagicProjectalScript : MonoBehaviour
 
         }
         sparks.SetParticles(particles);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+            sparks.Emit(1000);//short particles burst
+            coliided = true;
     }
 }

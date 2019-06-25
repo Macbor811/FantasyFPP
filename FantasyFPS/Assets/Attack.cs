@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-
+    public GameObject MagicProjectile;
     private int choosenWeapon = 1;
     // Start is called before the first frame update
     void Start()
@@ -46,6 +46,9 @@ public class Attack : MonoBehaviour
     private void Attack2()
     {
         Debug.Log("Attack2");
+        Vector3 position = transform.position;
+        Quaternion rotation = transform.rotation.normalized;
+        Instantiate(MagicProjectile, position, rotation);
     }
     private void Attack3()
     {
