@@ -45,10 +45,7 @@ public class Attack : MonoBehaviour
     }
     private void Attack2()
     {
-        Debug.Log("Attack2");
-        Vector3 position = transform.position;
-        Quaternion rotation = transform.rotation.normalized;
-        Instantiate(MagicProjectile, position, rotation);
+        Instantiate(MagicProjectile, transform.position, transform.rotation);
     }
     private void Attack3()
     {

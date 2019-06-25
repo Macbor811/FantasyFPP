@@ -7,6 +7,7 @@ public class MagicProjectalScript : MonoBehaviour
     public ParticleSystem sparks;
 
     private bool coliided=false;
+    public float speed = 20.0f;
     public float force = 10.0f;
     public float killingRange = 0.25f;
 
@@ -21,7 +22,7 @@ public class MagicProjectalScript : MonoBehaviour
     {
         if (!coliided)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * 20);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
             sparks.Emit(10);
         }
         else
