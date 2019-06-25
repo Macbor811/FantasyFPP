@@ -8,7 +8,7 @@ public class bloodSplash : MonoBehaviour
     public float speed=10.0f;
     public float gravity = 8.0f;
     public float noise = 1.0f;
-    public float scale = 0.3f;
+    public float scale = 0.001f;
     public float scaleNoise = 0.1f;
     public float lifetime = 1.0f;
     public float lifetimeNoise = 0.1f;

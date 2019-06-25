@@ -49,7 +49,7 @@ MonoBehaviour:
   speed: 3
   gravity: 8
   noise: 0.5
-  scale: 0.3
-  scaleNoise: 0.05
+  scale: 2
+  scaleNoise: 1
   lifetime: 0.4
   lifetimeNoise: 0.2
