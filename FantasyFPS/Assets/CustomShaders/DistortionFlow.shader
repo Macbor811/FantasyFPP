@@ -48,7 +48,7 @@
 				fixed4 c = tex2D(_MainTex, uvw.xy) * uvw.z * _Color;
 
 				//c.r = 2.0 * c.r;
-				c.r = 1;
+				c.r = 0.8;
 				c.b = 0;
 				o.Albedo = c.rgb;
 				//o.Albedo = float3(flowVector, 0);
