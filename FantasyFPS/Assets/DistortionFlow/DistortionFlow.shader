@@ -31,9 +31,7 @@
 		half _Metallic;
 		fixed4 _Color;
 
-		float3 FlowUVW(
-			float2 uv, float2 flowVector, float tiling, float time, bool flowB
-		) {
+		float3 FlowUVW(float2 uv, float2 flowVector, float tiling, float time, bool flowB) {
 			float phaseOffset = flowB ? 0.5 : 0;
 			float progress = frac(time + phaseOffset);
 			float3 uvw;
@@ -69,7 +67,7 @@
 			c.b = 0;
 
 			o.Albedo = c.rgb;
-			o.Emission = 1 * c.rgb;
+			o.Emission = c.rgb;
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
 			o.Alpha = c.a;
