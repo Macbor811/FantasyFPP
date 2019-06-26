@@ -34,12 +34,27 @@
         fixed4 _Color;
 		sampler2D _BumpMap, _FlowMap;
 
+		float2 FlowUV(float2 uv, float2 flowVector, float time) {
+			float progress = frac(time);
+			return uv - flowVector * progress;
+		}
+
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
+			float2 flowVector = tex2D(_FlowMap, IN.uv_MainTex).rg * 2 - 1;
+			float2 uv = FlowUV(IN.uv_MainTex, flowVector, _Time.y);
+			float noise = tex2D(_MainTex, uv).b;
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			float noise = tex2D(_FlowMap, IN.uv_MainTex).a;
-			c.r = noise > 0.5 ? noise + c.r : c.r;
+			//float noise = tex2D(_FlowMap, IN.uv_MainTex).a;
+			if (noise > 0.6) {
+				//c.r = 1.0;
+				c.b = 1.0;
+				c.g = 0.7;
+				//c.g = 0.0;
+				o.Emission = float3(0, c.g, c.b);
+			}
+			//c.r = noise > 0.57 ? noise + c.r : c.r;
 
             o.Albedo = c.rgb;
 			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
@@ -47,6 +62,7 @@
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+
         }
         ENDCG
     }
