@@ -26,6 +26,7 @@
         struct Input
         {
             float2 uv_MainTex;
+			float2 uv_FlowMap;
 			float2 uv_BumpMap;
         };
 
@@ -39,18 +40,22 @@
 			return uv - flowVector * progress;
 		}
 
+		float2 FlowUV(float2 uv, float time) {
+			float2 newUV = float2(uv.x + time / 6, uv.y + time / 3);
+			return newUV;
+		}
+
+
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-			float2 flowVector = tex2D(_FlowMap, IN.uv_MainTex).rg * 2 - 1;
-			float2 uv = FlowUV(IN.uv_MainTex, flowVector, _Time.y);
-			float noise = tex2D(_MainTex, uv).b;
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			//float noise = tex2D(_FlowMap, IN.uv_MainTex).a;
-			if (noise > 0.6) {
-				//c.r = 1.0;
-				c.b = 1.0;
-				c.g = 0.7;
+			float2 uv = FlowUV(IN.uv_FlowMap , _Time.y);
+			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			fixed4 cNoise = tex2D(_FlowMap, uv);
+
+			if (cNoise.r > 0.65) {
+				c.r = 0;
+				c.b = cNoise.r;
+				c.g = cNoise.g;
 				//c.g = 0.0;
 				o.Emission = float3(0, c.g, c.b);
 			}
