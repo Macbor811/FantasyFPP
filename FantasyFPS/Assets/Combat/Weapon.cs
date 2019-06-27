@@ -21,8 +21,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
-            anim.SetTrigger("StabAttack");
+      
 
     }
 

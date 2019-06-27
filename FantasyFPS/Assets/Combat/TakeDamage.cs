@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
-    public float HP=100;
+    public int HP=100;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +20,11 @@ public class TakeDamage : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+
+
+    public void takeDamage(int damage)
     {
-        DealDamage dmg = collision.gameObject.GetComponent<DealDamage>();
-        if (dmg!=null)
-        {
-            HP -= dmg.damage;
-            Debug.Log(HP);
-        }
+        Debug.Log("Taken damage: " + damage);
+        HP -= damage;
     }
 }

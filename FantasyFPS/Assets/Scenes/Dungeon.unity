@@ -453,9 +453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351f271a5c828d346b096a8d3d55a9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stabAnimation: {fileID: 0}
   MagicProjectile: {fileID: 7921444026754765707, guid: 6dddfd741cdafc945a308102111c52e3,
     type: 3}
+  weaponHolder: {fileID: 0}
 --- !u!1 &129943034
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,6 +953,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4025166273860584199}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &189336575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189336573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f94c58ed410d340aa85be5a2a94989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 26
 --- !u!1 &235867765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,7 +1143,7 @@ GameObject:
   - component: {fileID: 295432929}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3297,22 +3310,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4025166273201273172}
   m_PrefabAsset: {fileID: 0}
---- !u!111 &861488525
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861488524}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 1620c03df05d8dd4aa9f8fa05e20a7bd, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 1620c03df05d8dd4aa9f8fa05e20a7bd, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &861488526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3325,28 +3322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351f271a5c828d346b096a8d3d55a9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stabAnimation: {fileID: 0}
   MagicProjectile: {fileID: 7921444026754765707, guid: 6dddfd741cdafc945a308102111c52e3,
     type: 3}
---- !u!95 &861488527
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861488524}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1a58b5a713310184182c34e17e57eb3b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  weaponHolder: {fileID: 1269154399}
 --- !u!1 &867754749 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 135534, guid: fa13a9f8040777542a15a24e3b4cf4c7,
@@ -5258,7 +5236,6 @@ GameObject:
   - component: {fileID: 1269154401}
   - component: {fileID: 1269154404}
   - component: {fileID: 1269154405}
-  - component: {fileID: 1269154406}
   m_Layer: 8
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -5375,18 +5352,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &1269154406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269154399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a0972ef45f97147984faa8e48bdfec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1271909955
 GameObject:
   m_ObjectHideFlags: 0
@@ -6738,9 +6703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351f271a5c828d346b096a8d3d55a9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stabAnimation: {fileID: 0}
   MagicProjectile: {fileID: 7921444026754765707, guid: 6dddfd741cdafc945a308102111c52e3,
     type: 3}
+  weaponHolder: {fileID: 0}
 --- !u!1 &1813082610
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,8 +39,11 @@ public class ObbCollisionDetection : MonoBehaviour
 
     
 
-    public static bool Intersects(Obb a, Obb b)
+    public static bool Intersects(BoxCollider lhs, BoxCollider rhs)
     {
+        var a = new Obb(lhs);
+        var b = new Obb(rhs);
+
         if (Separated(a.Vertices, b.Vertices, a.Right))
             return false;
         if (Separated(a.Vertices, b.Vertices, a.Up))

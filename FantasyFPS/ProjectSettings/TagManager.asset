@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obbs
   - WeaponHolder
+  - Enemy
   layers:
   - Default
   - TransparentFX
