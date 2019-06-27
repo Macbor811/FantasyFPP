@@ -59,11 +59,11 @@ public class MagicProjectalScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        sparks.Emit(1000);//short particles burst
-        collided = true;
-        if(!collided && collision.gameObject.tag == "Enemy")
+        if (!collided && collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<TakeDamage>().takeDamage(GetComponent<DealDamage>().damage);
         }
+        sparks.Emit(1000);
+        collided = true;
     }
 }
