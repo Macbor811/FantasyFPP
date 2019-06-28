@@ -33,9 +33,6 @@ public class SkeletonController : MonoBehaviour
     {
         if (!isChase)
         {
-            Debug.Log(partolPoints[currentPoint].transform.position);
-            Debug.Log(transform.position);
-            Debug.Log("length: " + partolPoints.Length);
             if (transform.position.x == partolPoints[currentPoint].transform.position.x &&
                 transform.position.z == partolPoints[currentPoint].transform.position.z)
             {
