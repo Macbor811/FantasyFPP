@@ -110,3 +110,93 @@ public class ObbCollisionDetection : MonoBehaviour
         return longSpan >= sumSpan; // > to treat touching as intersection
     }
 }
+
+abstract public class HandleCollsion : MonoBehaviour
+{
+    // Start is called before the first frame update
+    Obb obb;
+    GameObject latestCollisionObject = null;
+    protected string tagOfObjectCollision;
+
+    void Start()
+    {
+        setTagOfObjectCollision();
+        obb = new Obb(this.GetComponent<BoxCollider>());
+    }
+
+    // update is called once per frame
+    bool exitCollsion = false;
+    bool hasAlreadyStarted = false;
+    void Update()
+    {
+        GameObject obj = getCollsionObject(this.gameObject, tagOfObjectCollision);
+        if (!hasAlreadyStarted && obj)
+        {
+            onStartCollsion(obj);
+            hasAlreadyStarted = true;
+        }
+        if (obj)
+        {
+            handleCollision(obj);
+            latestCollisionObject = obj;
+            exitCollsion = true;
+        }
+        else
+        {
+            if (exitCollsion)
+            {
+                exitCollsion = false;
+                onExitCollision(latestCollisionObject);
+                hasAlreadyStarted = false;
+            }
+        }
+    }
+
+    GameObject getCollsionObject(GameObject thisObj, string tag)
+    {
+        Obb obb = new Obb(thisObj.GetComponent<BoxCollider>());
+        var objects = GameObject.FindGameObjectsWithTag(tag);
+
+        foreach (GameObject obj in objects)
+        {
+            if (ObbCollisionDetection.Intersects(obb, new Obb(obj.GetComponent<BoxCollider>())))
+            {
+                return obj;
+            }
+        }
+        return null;
+    }
+
+    //TODO
+    //set a proper tag
+    //has to be implemented!
+    protected virtual void setTagOfObjectCollision()
+    {
+        tagOfObjectCollision = "Obbs";
+    }
+
+
+    //TODO
+    //override if you want to
+    public virtual void onStartCollsion(GameObject objectCauseCollision)
+    {
+        Debug.Log("Poczatek kolizji z obiektem:" + objectCauseCollision.ToString());
+    }
+
+
+    //TODO
+    //override if you want to
+    public virtual void handleCollision(GameObject objectCauseCollision)
+    {
+
+    }
+
+    //TODO
+    //override if you want to
+    public virtual void onExitCollision(GameObject objectCauseCollision)
+    {
+        Debug.Log("Wyjscie z kolizji z obiektem:" + objectCauseCollision.ToString());
+    }
+
+
+}

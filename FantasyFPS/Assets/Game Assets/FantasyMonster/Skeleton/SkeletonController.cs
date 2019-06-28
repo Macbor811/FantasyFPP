@@ -14,6 +14,9 @@ public class SkeletonController : MonoBehaviour
     public GameObject[] partolPoints;
     int currentPoint = 0;
     bool isChase = false;
+
+    public GameObject weapon;
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("hero").transform;
@@ -50,6 +53,10 @@ public class SkeletonController : MonoBehaviour
         else if (hasAttacked && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             hasAttacked = false;
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            weapon.GetComponent<BoxCollider>()
         }
     }
 
