@@ -7,7 +7,7 @@ public class SkeletonController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float lookRadius = 10f;
-    public float attackRange = 0.5f;
+    public float attackRange = 2f;
     Animator animator;
     Transform target;
     NavMeshAgent agent;
@@ -34,16 +34,22 @@ public class SkeletonController : MonoBehaviour
 
     void attack()
     {
+        animator.SetTrigger("attack");
         hasAttacked = true;
     }
 
     bool hasAttacked = false;
     void handleCombat()
     {
-        if (isChase && agent.remainingDistance < attackRange && !hasAttacked)
+        float distance = agent.remainingDistance;
+        if (isChase &&   agent.remainingDistance < attackRange && !hasAttacked)
         {
             Debug.Log("Attacking");
             attack();
+        }
+        else if (hasAttacked && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            hasAttacked = false;
         }
     }
 
