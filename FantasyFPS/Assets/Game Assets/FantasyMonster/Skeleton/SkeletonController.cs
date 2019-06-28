@@ -7,6 +7,8 @@ public class SkeletonController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float lookRadius = 10f;
+    public float attackRange = 0.5f;
+    Animator animator;
     Transform target;
     NavMeshAgent agent;
     public GameObject[] partolPoints;
@@ -17,7 +19,7 @@ public class SkeletonController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("hero").transform;
         Debug.Log("hero: " + target.position);
         agent = GetComponent<NavMeshAgent>();
-        
+        animator = GetComponent<Animator>();
         Debug.Log(transform.position);
     }
 
@@ -26,7 +28,23 @@ public class SkeletonController : MonoBehaviour
     {
         handleAI();
         handlePatrol();
+        handleCombat();
         
+    }
+
+    void attack()
+    {
+        hasAttacked = true;
+    }
+
+    bool hasAttacked = false;
+    void handleCombat()
+    {
+        if (isChase && agent.remainingDistance < attackRange && !hasAttacked)
+        {
+            Debug.Log("Attacking");
+            attack();
+        }
     }
 
     void handlePatrol()
@@ -63,10 +81,12 @@ public class SkeletonController : MonoBehaviour
         {
             agent.SetDestination(target.position);
             isChase = true;
+            animator.SetBool("isChase", true);
         }
         else
         {
             isChase = false;
+            animator.SetBool("isChase", false);
         }
     }
 
