@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - hero
   - EnemyWeapon
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - WeaponHolder
   - MagicProjectile
+  - WeaponHolder
   - Player
   - 
   - 

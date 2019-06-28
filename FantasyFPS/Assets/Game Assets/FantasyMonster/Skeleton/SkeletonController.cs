@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SkeletonController : MonoBehaviour
+public class SkeletonController : MonoBehaviour, IPlayerHittable
 {
     // Start is called before the first frame update
     public float lookRadius = 10f;
@@ -17,8 +17,25 @@ public class SkeletonController : MonoBehaviour
 
     public GameObject weapon;
 
+    public int healthPoints = 100;
+
+    //protected override void setTagOfObjectCollision()
+    //{
+    //    base.tagOfObjectCollision = "PlayerWeapon";
+    //}
+
+    //public override void onStartCollsion(GameObject objectCauseCollision)
+    //{
+    //    var dmg = objectCauseCollision.GetComponent<DealDamage>();
+    //    if (dmg && dmg.IsActive)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
     void Start()
     {
+        //base.Start();
         target = GameObject.FindGameObjectWithTag("hero").transform;
         Debug.Log("hero: " + target.position);
         agent = GetComponent<NavMeshAgent>();
@@ -29,10 +46,12 @@ public class SkeletonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         handleAI();
         handlePatrol();
         handleCombat();
-        
+        //base.Update();
+
     }
 
     void attack()
@@ -56,7 +75,7 @@ public class SkeletonController : MonoBehaviour
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
-            weapon.GetComponent<BoxCollider>()
+           // weapon.GetComponent<BoxCollider>()
         }
     }
 
@@ -107,5 +126,22 @@ public class SkeletonController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    public void OnHit(DealDamage damage)
+    {
+        
+        healthPoints -= damage.damage;
+        Debug.Log("HP left: " + healthPoints);
+        if (healthPoints <= 0)
+        {
+            animator.SetTrigger("death");
+            agent.isStopped = true;
+        }
+    }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
     }
 }

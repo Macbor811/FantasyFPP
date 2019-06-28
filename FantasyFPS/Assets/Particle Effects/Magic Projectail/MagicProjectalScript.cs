@@ -14,7 +14,7 @@ public class MagicProjectalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<DealDamage>().IsActive = true;
     }
 
     // Update is called once per frame
@@ -59,10 +59,10 @@ public class MagicProjectalScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collided && collision.gameObject.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<TakeDamage>().takeDamage(GetComponent<DealDamage>().damage);
-        }
+        //if (!collided && collision.gameObject.tag == "Enemy")
+        //{
+        //    collision.gameObject.GetComponent<TakeDamage>().takeDamage(GetComponent<DealDamage>().damage);
+        //}
         sparks.Emit(1000);
         collided = true;
     }

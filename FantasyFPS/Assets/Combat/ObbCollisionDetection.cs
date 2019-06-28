@@ -111,23 +111,27 @@ public class ObbCollisionDetection : MonoBehaviour
     }
 }
 
-abstract public class HandleCollsion : MonoBehaviour
+abstract public class CollisionHandler : MonoBehaviour
 {
     // Start is called before the first frame update
-    Obb obb;
+    BoxCollider thisCollider;
     GameObject latestCollisionObject = null;
     protected string tagOfObjectCollision;
 
-    void Start()
+    protected void Start()
     {
         setTagOfObjectCollision();
-        obb = new Obb(this.GetComponent<BoxCollider>());
+        thisCollider = this.GetComponent<BoxCollider>();
+        if (!thisCollider)
+        {
+            throw new MissingComponentException("Custom collision handler doesn't contain box collider component");
+        }
     }
 
     // update is called once per frame
     bool exitCollsion = false;
     bool hasAlreadyStarted = false;
-    void Update()
+    protected void Update()
     {
         GameObject obj = getCollsionObject(this.gameObject, tagOfObjectCollision);
         if (!hasAlreadyStarted && obj)
@@ -154,12 +158,12 @@ abstract public class HandleCollsion : MonoBehaviour
 
     GameObject getCollsionObject(GameObject thisObj, string tag)
     {
-        Obb obb = new Obb(thisObj.GetComponent<BoxCollider>());
+        //Obb obb = new Obb(thisObj.GetComponent<BoxCollider>());
         var objects = GameObject.FindGameObjectsWithTag(tag);
 
         foreach (GameObject obj in objects)
         {
-            if (ObbCollisionDetection.Intersects(obb, new Obb(obj.GetComponent<BoxCollider>())))
+            if (obj != thisObj && ObbCollisionDetection.Intersects(thisCollider, obj.GetComponent<BoxCollider>()))
             {
                 return obj;
             }
@@ -170,17 +174,17 @@ abstract public class HandleCollsion : MonoBehaviour
     //TODO
     //set a proper tag
     //has to be implemented!
-    protected virtual void setTagOfObjectCollision()
-    {
-        tagOfObjectCollision = "Obbs";
-    }
+    protected abstract void setTagOfObjectCollision();
+    //{
+    //    tagOfObjectCollision = "Obbs";
+    //}
 
 
     //TODO
     //override if you want to
     public virtual void onStartCollsion(GameObject objectCauseCollision)
     {
-        Debug.Log("Poczatek kolizji z obiektem:" + objectCauseCollision.ToString());
+       // Debug.Log("Poczatek kolizji z obiektem:" + objectCauseCollision.ToString());
     }
 
 
@@ -195,7 +199,7 @@ abstract public class HandleCollsion : MonoBehaviour
     //override if you want to
     public virtual void onExitCollision(GameObject objectCauseCollision)
     {
-        Debug.Log("Wyjscie z kolizji z obiektem:" + objectCauseCollision.ToString());
+       // Debug.Log("Wyjscie z kolizji z obiektem:" + objectCauseCollision.ToString());
     }
 
 

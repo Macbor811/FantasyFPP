@@ -87,7 +87,7 @@ SphereCollider:
   m_GameObject: {fileID: 798493010827598608}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.50000024
   m_Center: {x: 0.0000019073486, y: 0, z: -0.0000076293945}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7921444026098170256}
   - component: {fileID: 7921444026098170258}
   - component: {fileID: 7921444026098170259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4855,7 +4855,8 @@ GameObject:
   - component: {fileID: 7921444026754765709}
   - component: {fileID: 3132083799691321988}
   - component: {fileID: 6184375509590400315}
-  m_Layer: 0
+  - component: {fileID: 4060299270713001435}
+  m_Layer: 9
   m_Name: MagicProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4923,7 +4924,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f94c58ed410d340aa85be5a2a94989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 51
+--- !u!65 &4060299270713001435
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921444026754765707}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.35364738, y: 0.54798603, z: 1.0365529}
+  m_Center: {x: -0.14424697, y: -0.030574687, z: -0.26618797}
 --- !u!1 &7921444026837965494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,7 +4948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7921444026837965497}
   - component: {fileID: 7921444026837965496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,28 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DealDamage : MonoBehaviour
+public class DealDamage : CollisionHandler
 {
     // Start is called before the first frame update
     public int damage = 10;
-    //public Obb obb;
 
+    public bool IsActive
+    { set; get; } = false;
+    //private bool damageDealt = false;
+
+    protected override void setTagOfObjectCollision()
+    {
+        tagOfObjectCollision = "Enemy";
+    }
+
+    public override void onStartCollsion(GameObject objectCauseCollision)
+    {
+
+            var dmg = objectCauseCollision.GetComponent<IPlayerHittable>();
+            if (dmg != null)
+            {
+                dmg.OnHit(this);
+                IsActive = false;
+            }
+
+    }
 
     void Start()
     {
-        //var collider = this.GetComponent<BoxCollider>();
-        //Obb obb = ObbCollisionDetection.ToObb(collider);
+       // IsActive = false;
+        base.Start();
     }
 
-    //public Obb GetObb()
-    //{
-    //    var collider = this.GetComponent<BoxCollider>();
-    //    return ObbCollisionDetection.ToObb(collider);
-    //}
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (IsActive)
+            base.Update();
     }
 }

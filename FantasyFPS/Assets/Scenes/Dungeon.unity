@@ -1455,7 +1455,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5380,7 +5380,7 @@ GameObject:
   - component: {fileID: 1269154401}
   - component: {fileID: 1269154404}
   - component: {fileID: 1269154405}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6211,6 +6211,8 @@ MonoBehaviour:
   lookRadius: 1000
   attackRange: 2
   partolPoints: []
+  weapon: {fileID: 0}
+  healthPoints: 100
 --- !u!195 &1542895432
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6253,7 +6255,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542895430}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc2bbe6230bd3584b8f362ba5a4e7cae, type: 3}
   m_Name: 
@@ -22752,6 +22754,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_Name
       value: FPSCombatController
@@ -22763,6 +22769,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_TagString
       value: hero
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22820,14 +22830,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.7
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 311
@@ -22851,11 +22853,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 113908, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 113908, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
       propertyPath: m_TagString
-      value: Obbs
+      value: PlayerWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 407908, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22913,18 +22915,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 20.257698
       objectReference: {fileID: 0}
-    - target: {fileID: 113928, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 175384, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 423090, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0000014305
@@ -22944,6 +22934,18 @@ PrefabInstance:
     - target: {fileID: 423090, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2458
+      objectReference: {fileID: 0}
+    - target: {fileID: 114302, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 175384, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 113928, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dae486b6cd483d4eab1baaf8fd47c7b, type: 3}

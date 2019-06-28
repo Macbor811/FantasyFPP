@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     private Animator weaponAnimator;
     public GameObject MagicProjectile;
     public GameObject weaponHolder;
+    private DealDamage damage;
     bool damageDealt = false;
     //private Obb obb;
 
@@ -16,7 +17,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         weaponAnimator = weaponHolder.GetComponent<Animator>();
-
+        damage = weaponHolder.GetComponentInChildren<DealDamage>();
     }
 
     void CheckCollisions(DealDamage damageSource)
@@ -43,17 +44,14 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-            if (!damageDealt)
-            {
-                CheckCollisions(weaponHolder.GetComponentInChildren<DealDamage>());
-            }           
-        }
-        else
-        {
-            damageDealt = false;
-        }
+        //if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        //{
+        //    damage.IsActive = true;
+        //}
+        //else
+        //{
+        //    damage.IsActive = false;
+        //}
 
         if (Input.GetButtonDown("Button1"))
             chosenWeapon = 1;
@@ -88,6 +86,7 @@ public class Attack : MonoBehaviour
     {
         // Debug.Log("Attack1");
         weaponAnimator.SetTrigger("StabAttack");
+        damage.IsActive = true;
 
     }
     private void Attack2()
