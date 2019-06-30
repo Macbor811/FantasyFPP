@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Attack : MonoBehaviour
+public class Attack : MonoBehaviour, IHittable
 {
 
     private Animator weaponAnimator;
     public GameObject MagicProjectile;
     public GameObject weaponHolder;
+    public GameObject gameOverScreen;
+
     private DealDamage damage;
     bool damageDealt = false;
+    public int healthPoints = 100;
+    public Text hpText;
     //private Obb obb;
 
     private int chosenWeapon = 1;
@@ -18,6 +23,7 @@ public class Attack : MonoBehaviour
     {
         weaponAnimator = weaponHolder.GetComponent<Animator>();
         damage = weaponHolder.GetComponentInChildren<DealDamage>();
+        hpText.text = "HP: " + healthPoints;
     }
 
     void CheckCollisions(DealDamage damageSource)
@@ -97,5 +103,15 @@ public class Attack : MonoBehaviour
     private void Attack3()
     {
         Debug.Log("Attack3");
+    }
+
+    public void OnHit(DealDamage damage)
+    {
+        healthPoints -= damage.damage;
+        hpText.text = "HP: " + healthPoints;
+        if (healthPoints <= 0)
+        {
+            gameOverScreen.SetActive(true);
+        }
     }
 }

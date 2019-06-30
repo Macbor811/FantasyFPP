@@ -4925,6 +4925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 51
+  collisionTag: Enemy
 --- !u!65 &4060299270713001435
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPlayerHittable
+public interface IHittable
 {
     void OnHit(DealDamage damage);
     

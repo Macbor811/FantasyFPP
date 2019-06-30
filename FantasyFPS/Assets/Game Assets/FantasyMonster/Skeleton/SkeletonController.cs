@@ -3,35 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SkeletonController : MonoBehaviour, IPlayerHittable
+public class SkeletonController : MonoBehaviour, IHittable
 {
     // Start is called before the first frame update
     public float lookRadius = 10f;
-    public float attackRange = 2f;
+    public float attackRange = 4f;
     Animator animator;
     Transform target;
     NavMeshAgent agent;
-    public GameObject[] partolPoints;
+    public GameObject[] patrolPoints;
     int currentPoint = 0;
     bool isChase = false;
+    bool isDying = false;
 
-    public GameObject weapon;
+
+    enum Mode { CHASE, ATTACK, PATROL};
+
+    private Mode mode = Mode.PATROL;
+
+    private DealDamage damage;
 
     public int healthPoints = 100;
 
-    //protected override void setTagOfObjectCollision()
-    //{
-    //    base.tagOfObjectCollision = "PlayerWeapon";
-    //}
-
-    //public override void onStartCollsion(GameObject objectCauseCollision)
-    //{
-    //    var dmg = objectCauseCollision.GetComponent<DealDamage>();
-    //    if (dmg && dmg.IsActive)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
 
     void Start()
     {
@@ -40,56 +33,48 @@ public class SkeletonController : MonoBehaviour, IPlayerHittable
         Debug.Log("hero: " + target.position);
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        damage = GetComponentInChildren<DealDamage>();
         Debug.Log(transform.position);
+        agent.stoppingDistance = attackRange;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        handleAI();
-        handlePatrol();
-        handleCombat();
+      if (!isDying)
+        {
+            handleAI();
+            //handlePatrol();
+            //handleCombat();
+        }
         //base.Update();
 
     }
 
-    void attack()
-    {
-        animator.SetTrigger("attack");
-        hasAttacked = true;
-    }
 
     bool hasAttacked = false;
+
     void handleCombat()
-    {
-        float distance = agent.remainingDistance;
-        if (isChase &&   agent.remainingDistance < attackRange && !hasAttacked)
+    {    
+        if (!hasAttacked)
         {
-            Debug.Log("Attacking");
-            attack();
+            animator.SetTrigger("attack");
+            hasAttacked = true;
         }
-        else if (hasAttacked && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-            hasAttacked = false;
-        }
-        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-           // weapon.GetComponent<BoxCollider>()
-        }
+    
     }
 
     void handlePatrol()
     {
-        if (!isChase)
+        if (mode == Mode.PATROL && patrolPoints.Length > 0)
         {
-            Debug.Log(partolPoints[currentPoint].transform.position);
+            Debug.Log(patrolPoints[currentPoint].transform.position);
             Debug.Log(transform.position);
-            Debug.Log("length: " + partolPoints.Length);
-            if (transform.position.x == partolPoints[currentPoint].transform.position.x &&
-                transform.position.z == partolPoints[currentPoint].transform.position.z)
+            Debug.Log("length: " + patrolPoints.Length);
+            if (transform.position.x == patrolPoints[currentPoint].transform.position.x &&
+                transform.position.z == patrolPoints[currentPoint].transform.position.z)
             {
-                if (currentPoint + 1 >= partolPoints.Length)
+                if (currentPoint + 1 >= patrolPoints.Length)
                 {
                     currentPoint = 0;
                 }
@@ -100,10 +85,16 @@ public class SkeletonController : MonoBehaviour, IPlayerHittable
             }
             else
             {
-                agent.SetDestination(partolPoints[currentPoint].transform.position);
+                agent.SetDestination(patrolPoints[currentPoint].transform.position);
             }
         }
     }
+
+    //bool checkAttackCondition()
+    //{
+    //    float distance = Vector3.Distance(target.position, transform.position);
+    //    return distance <= lookRadius;
+    //}
 
     void handleAI()
     {
@@ -111,15 +102,32 @@ public class SkeletonController : MonoBehaviour, IPlayerHittable
 
         if (distance <= lookRadius)
         {
-            agent.SetDestination(target.position);
-            isChase = true;
-            animator.SetBool("isChase", true);
+            if (distance < attackRange)
+            {
+                Debug.Log("Attack mode");
+                mode = Mode.ATTACK;
+                agent.isStopped = true;
+                agent.ResetPath();
+                handleCombat();
+            }
+            else
+            {
+                Debug.Log("Chase mode");
+                mode = Mode.CHASE;
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.position);
+                }    
+            }         
         }
         else
         {
-            isChase = false;
-            animator.SetBool("isChase", false);
+            Debug.Log("Patrol mode");
+            mode = Mode.PATROL;
+            handlePatrol();
         }
+        animator.SetBool("isChase", mode == Mode.CHASE);
     }
 
     void onDrawGizmosSelected()
@@ -129,19 +137,33 @@ public class SkeletonController : MonoBehaviour, IPlayerHittable
     }
 
     public void OnHit(DealDamage damage)
-    {
-        
+    {    
         healthPoints -= damage.damage;
         Debug.Log("HP left: " + healthPoints);
-        if (healthPoints <= 0)
+        if (healthPoints <= 0 && !isDying)
         {
             animator.SetTrigger("death");
             agent.isStopped = true;
+            isDying = true;
         }
     }
 
     public void OnDeath()
     {
         Destroy(gameObject);
+    }
+
+    public void AttackStart()
+    {
+        damage.IsActive = true;
+    }
+    public void AttackEnd()
+    {
+        damage.IsActive = false;
+    }
+
+    public void AttackAnimationEnd()
+    {
+        hasAttacked = false;
     }
 }
