@@ -44,10 +44,7 @@ public class SkeletonController : MonoBehaviour, IHittable
       if (!isDying)
         {
             handleAI();
-            //handlePatrol();
-            //handleCombat();
         }
-        //base.Update();
 
     }
 
@@ -98,6 +95,7 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     void handleAI()
     {
+        animator.SetBool("isChase", mode == Mode.CHASE);
         float distance = Vector3.Distance(target.position, transform.position);
 
         if (distance <= lookRadius)
@@ -127,7 +125,7 @@ public class SkeletonController : MonoBehaviour, IHittable
             mode = Mode.PATROL;
             handlePatrol();
         }
-        animator.SetBool("isChase", mode == Mode.CHASE);
+
     }
 
     void onDrawGizmosSelected()
@@ -143,7 +141,7 @@ public class SkeletonController : MonoBehaviour, IHittable
         if (healthPoints <= 0 && !isDying)
         {
             animator.SetTrigger("death");
-            agent.isStopped = true;
+            agent.ResetPath();
             isDying = true;
         }
     }
