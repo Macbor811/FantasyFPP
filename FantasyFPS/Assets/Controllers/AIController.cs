@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SkeletonController : MonoBehaviour
+public class AIController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float lookRadius = 10f;
-    Transform target;
+    Transform target;   
     NavMeshAgent agent;
     public GameObject[] partolPoints;
     int currentPoint = 0;
     bool isChase = false;
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("hero").transform;
-        Debug.Log("hero: " + target.position);
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log("Player: " + target.position);
         agent = GetComponent<NavMeshAgent>();
         
         Debug.Log(transform.position);
