@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
+    public GameObject blood;
     public float HP=100;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,12 @@ public class TakeDamage : MonoBehaviour
         if (dmg!=null)
         {
             HP -= dmg.damage;
+
+            Vector3 direction = transform.position - collision.transform.position;
+            direction.Normalize();
+
+            Instantiate(blood, transform.position, Quaternion.LookRotation(direction));
+
             Debug.Log(HP);
         }
     }

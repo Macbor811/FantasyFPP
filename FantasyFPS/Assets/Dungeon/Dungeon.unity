@@ -1186,6 +1186,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 689488302}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &79360634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79360633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351f271a5c828d346b096a8d3d55a9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MagicProjectile: {fileID: 7921444026754765707, guid: 6dddfd741cdafc945a308102111c52e3,
+    type: 3}
 --- !u!65 &79360639
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8489,6 +8503,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.771
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
