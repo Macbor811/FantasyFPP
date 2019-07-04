@@ -1,0 +1,21 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShackingAnimation : MonoBehaviour
+{
+  private Animator animator;
+
+  void Start() {
+    animator = GetComponent<Animator>();
+  }
+  
+  void Update() {
+    if(Input.GetKeyDown(KeyCode.W)) {
+        animator.SetBool("Walk", true);
+    } 
+    if(Input.GetKeyUp(KeyCode.W)) {
+        animator.SetBool("Walk", false);
+    }
+  }
+}
