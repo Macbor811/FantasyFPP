@@ -14,14 +14,13 @@ public class TailContoller : MonoBehaviour
     bool forwardDirection = true;
     public float delayTime = 2f;
     private GameObject player;
-    private bool xAxis = false, yAxis = false, zAxis = false;
 
   
     // Start is called before the first frame update
     void Start()
     {
-        currentWaypoint = patrolPoints[0]; // set initial waypoint
         currentIndex = 0; // set initial index
+        currentWaypoint = patrolPoints[currentIndex]; // set initial waypoint
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -30,16 +29,15 @@ public class TailContoller : MonoBehaviour
     {
         if (wait == false)
         {
-
             Vector3 vector = handleMove();
-            if (Vector3.Distance(currentWaypoint.transform.position, transform.position) <= 0.2f)
+            if (Vector3.Distance(currentWaypoint.position, transform.position) <= 0.2f)
             {
-                if(forwardDirection)
+                if (forwardDirection)
                 {
                     if (currentIndex == patrolPoints.Length - 1)
                     {
-                        delay(delayTime);
                         forwardDirection = false;
+                        currentIndex--;
                     }
                     else
                     {
@@ -50,8 +48,8 @@ public class TailContoller : MonoBehaviour
                 {
                     if (currentIndex == 0)
                     {
-                        delay(delayTime);
                         forwardDirection = true;
+                        currentIndex++;
                     }
                     else
                     {
@@ -59,22 +57,31 @@ public class TailContoller : MonoBehaviour
                     }
                 }
                 currentWaypoint = patrolPoints[currentIndex];
+                delay(delayTime);
             }
-            if ((player.transform.position.x < this.transform.position.x + 1) && (player.transform.position.x > this.transform.position.x - 1)
-                   && (player.transform.position.z < this.transform.position.z + 1) && (player.transform.position.z > this.transform.position.z - 1))
-            {
+              if ((player.transform.position.x < this.transform.position.x + 2) && (player.transform.position.x > this.transform.position.x - 2) && 
+                   (player.transform.position.z < this.transform.position.z + 2) && (player.transform.position.z > this.transform.position.z - 2)
+                   && (player.transform.position.y >= this.transform.position.y && player.transform.position.y < this.transform.position.y + 3 ))
+            { 
+                Debug.Log("TRANSPORT GRACZA");
                 handlePlayermove(vector);
-                Debug.Log("bee");
+                
             }
+            
+                Debug.Log("gracza: x " + player.transform.position.x);
+                Debug.Log("kafelka: x " + transform.position.x);
+                Debug.Log("gracza: z " + player.transform.position.z);
+                Debug.Log("kafelka: z " + transform.position.z);
+
+                
+            
         }
     }
     Vector3 handleMove()
     {
-      
-
-        var deltaPosition = currentWaypoint.transform.position - transform.position;
+        var deltaPosition = currentWaypoint.position - transform.position;
         var calcVector = deltaPosition.normalized * speed * Time.deltaTime;
-        transform.Translate(calcVector);
+        transform.Translate(calcVector, Space.World);
         return calcVector;
         // this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(deltaPosition), 4 * Time.deltaTime);
     }
@@ -85,28 +92,7 @@ public class TailContoller : MonoBehaviour
         player.transform.Translate(vector,Space.World);
         player.GetComponent<CharacterController>().enabled = true;
     }
-    void handlePlayerMove()
-    {
-        setAxis();
-        if (xAxis)
-        {
-            var tmp = player.transform.position;
-            tmp.x+= 5f * speed;
-            player.transform.position = tmp;
-        }
-        if (yAxis)
-        {
-            var tmp = player.transform.position;
-            tmp.y += 5f * speed;
-            player.transform.position = tmp;
-        }
-        if (zAxis)
-        {
-            var tmp = player.transform.position;
-            tmp.z += 5f*speed;
-            player.transform.position = tmp;
-        }
-    }
+    
     
     void delay(float seconds)
     {
@@ -116,21 +102,5 @@ public class TailContoller : MonoBehaviour
     public void setActive()
     {
         wait = false;
-    }
-    void setAxis()
-    {
-        if (forwardDirection)
-        {
-            if ((patrolPoints[currentIndex].position.x - patrolPoints[currentIndex + 1].position.x) != 0)
-                xAxis = true;
-            else xAxis = false;
-            if ((patrolPoints[currentIndex].position.y - patrolPoints[currentIndex + 1].position.y) != 0)
-                yAxis = true;
-            else yAxis = false;
-            if ((patrolPoints[currentIndex].position.z - patrolPoints[currentIndex + 1].position.z) != 0)
-                zAxis = true;
-            else zAxis = false;
-
-        }
     }
 }
