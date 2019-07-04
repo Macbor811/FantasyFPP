@@ -17,5 +17,12 @@ public class ShackingAnimation : MonoBehaviour
     if(Input.GetKeyUp(KeyCode.W)) {
         animator.SetBool("Walk", false);
     }
+    
+    if(Input.GetKeyDown(KeyCode.LeftShift)) {
+        animator.SetBool("FastWalk", true);
+    } 
+    if(Input.GetKeyUp(KeyCode.LeftShift)) {
+        animator.SetBool("FastWalk", false);
+    }
   }
 }
