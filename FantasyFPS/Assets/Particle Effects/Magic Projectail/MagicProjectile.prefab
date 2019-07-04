@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1028502365229251056}
   - component: {fileID: 9826172411466226}
   - component: {fileID: 3294875032257081308}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7921444026098170256}
   - component: {fileID: 7921444026098170258}
   - component: {fileID: 7921444026098170259}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 3132083799691321988}
   - component: {fileID: 6184375509590400315}
   - component: {fileID: 4060299270713001435}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: MagicProjectile
   m_TagString: PlayerWeapon
   m_Icon: {fileID: 0}
