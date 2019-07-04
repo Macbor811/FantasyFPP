@@ -20,7 +20,7 @@ public class bloodSplash : MonoBehaviour
         for (int i = 0; i < numberOfParticles; i++)
         {
             BloodDrop tmp=new BloodDrop(bloodDropPrerfab, transform.position, transform.rotation ,transform);
-            tmp.SetVelocity(new Vector3( Random.Range(-noise, noise), Random.Range(-noise, noise), Random.Range(-noise, noise)-speed));
+            tmp.SetVelocity(new Vector3(speed + Random.Range(-noise, noise), Random.Range(-noise, noise), Random.Range(-noise, noise)));
             tmp.SetAcceleration(new Vector3(0, -8 + Random.Range(-noise, noise), 0));
             tmp.SetLifeLength(lifetime + Random.Range(-lifetimeNoise, lifetimeNoise));
             tmp.SetScale(scale+ Random.Range(-noise, noise));
@@ -67,7 +67,7 @@ public class BloodDrop:Object
     public BloodDrop(GameObject bloodDropPrefab, Vector3 position,Quaternion rotation, Transform parent)
     {
         bloodDrop = bloodDropPrefab;
-        bloodDrop = Instantiate(bloodDropPrefab, position, rotation ,parent);
+        bloodDrop = Instantiate(bloodDropPrefab, position, Quaternion.identity,parent);
     }
 
     public void ResetLifeTime() { this.lifetime = 0;  }

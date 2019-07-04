@@ -6,7 +6,7 @@ public class MagicProjectalScript : MonoBehaviour
 {
     public ParticleSystem sparks;
 
-    private bool coliided=false;
+    private bool collided=false;
     public float speed = 20.0f;
     public float force = 10.0f;
     public float killingRange = 0.25f;
@@ -14,13 +14,13 @@ public class MagicProjectalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<DealDamage>().IsActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!coliided)
+        if (!collided)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             sparks.Emit(10);
@@ -59,7 +59,11 @@ public class MagicProjectalScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-            sparks.Emit(1000);//short particles burst
-            coliided = true;
+        //if (!collided && collision.gameObject.tag == "Enemy")
+        //{
+        //    collision.gameObject.GetComponent<TakeDamage>().takeDamage(GetComponent<DealDamage>().damage);
+        //}
+        sparks.Emit(1000);
+        collided = true;
     }
 }

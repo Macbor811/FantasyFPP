@@ -2,29 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TakeDamage : MonoBehaviour
+public class SpawnBlood : MonoBehaviour
 {
-    public int HP=100;
+    public GameObject blood;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(HP<=0)
+        if(Input.GetKeyDown("space"))
         {
-            //death
-            Destroy(gameObject);
+            Instantiate(blood, transform.position, transform.rotation, transform);
         }
-    }
-
-
-    public void takeDamage(int damage)
-    {
-        Debug.Log("Taken damage: " + damage);
-        HP -= damage;
     }
 }
