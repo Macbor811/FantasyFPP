@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShackingAnimation : MonoBehaviour
 {
   private Animator animator;
+  private bool weaponHide = false;
 
   void Start() {
     animator = GetComponent<Animator>();
@@ -31,5 +32,17 @@ public class ShackingAnimation : MonoBehaviour
     if(Input.GetMouseButtonUp(0)) {
         animator.SetBool("Attack", false);
     }
+    
+    if(Input.GetKeyDown(KeyCode.Alpha2) && !this.weaponHide) {
+        animator.SetBool("WeaponHide", true);
+        animator.SetBool("WeaponShow", false);
+        this.weaponHide = !this.weaponHide;
+    }
+    if(Input.GetKeyDown(KeyCode.Alpha1) && this.weaponHide) {
+        animator.SetBool("WeaponHide", false);
+        animator.SetBool("WeaponShow", true);
+        this.weaponHide = !this.weaponHide;
+    }
+
   }
 }
