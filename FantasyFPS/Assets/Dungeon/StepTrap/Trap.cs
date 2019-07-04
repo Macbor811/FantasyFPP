@@ -21,11 +21,14 @@ public class Trap : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        TimePassed += Time.deltaTime;
-        if(TimePassed>=TimeBetweenShoots)
+        if (other.name== "FPSController")
         {
-            Shoot();
-            TimePassed = 0;
+            TimePassed += Time.deltaTime;
+            if (TimePassed >= TimeBetweenShoots)
+            {
+                Shoot();
+                TimePassed = 0;
+            }
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -34,7 +37,6 @@ public class Trap : MonoBehaviour
     }
     private void Shoot()
     {
-        Debug.Log("coll");
         Instantiate(ArrowPrefab, Emiter.transform.position,Emiter.transform.rotation);
     }
 }
