@@ -21,7 +21,7 @@ public class TailContoller : MonoBehaviour
     {
         currentIndex = 0; // set initial index
         currentWaypoint = patrolPoints[currentIndex]; // set initial waypoint
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("hero");
     }
 
     // Update is called once per frame

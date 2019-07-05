@@ -41,7 +41,7 @@ public class bloodSplash : MonoBehaviour
                 {
                     //particles[i] = new BloodDrop(bloodDropPrerfab, transform.position, transform.rotation,transform);
                     particles[i].SetPosition(transform.position);
-                    particles[i].SetVelocity(new Vector3(speed + Random.Range(-noise, noise), Random.Range(-noise, noise), Random.Range(-noise, noise)));
+                    particles[i].SetVelocity(new Vector3(Random.Range(-noise, noise), Random.Range(-noise, noise), Random.Range(-noise, noise)-speed));
                     particles[i].ResetLifeTime();
                 }
                 else

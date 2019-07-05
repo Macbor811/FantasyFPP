@@ -4926,6 +4926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 51
   collisionTag: Enemy
+  blood: {fileID: 8938266905694337815, guid: 9c250510fb71f81489dd8574b7a83c09, type: 3}
 --- !u!65 &4060299270713001435
 BoxCollider:
   m_ObjectHideFlags: 0

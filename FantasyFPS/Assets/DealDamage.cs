@@ -7,6 +7,7 @@ public class DealDamage : CollisionHandler
     // Start is called before the first frame update
     public int damage = 10;
     public string collisionTag;
+    public GameObject blood;
         
     public bool IsActive
     { set; get; } = false;
@@ -34,6 +35,10 @@ public class DealDamage : CollisionHandler
         {
             dmg.OnHit(this);
             IsActive = false;
+            Vector3 direction = transform.position - objectCauseCollision.transform.position;
+            direction.Normalize();
+
+            Instantiate(blood, objectCauseCollision.transform.position, Quaternion.LookRotation(direction));
         }
     }
 

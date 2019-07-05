@@ -14,9 +14,17 @@ public class SpawnBlood : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("space"))
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        DealDamage dmg = collision.gameObject.GetComponent<DealDamage>();
+        if (dmg != null)
         {
-            Instantiate(blood, transform.position, transform.rotation, transform);
+            Vector3 direction = transform.position - collision.transform.position;
+            direction.Normalize();
+
+            Instantiate(blood, transform.position, Quaternion.LookRotation(direction));
         }
     }
 }
