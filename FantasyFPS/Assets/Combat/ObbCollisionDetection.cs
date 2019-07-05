@@ -84,7 +84,7 @@ public class ObbCollisionDetection : MonoBehaviour
 
     static bool Separated(Vector3[] vertsA, Vector3[] vertsB, Vector3 axis)
     {
-        // Handles the cross product = {0,0,0} case
+        // przypadek iloczynu wektorowego = {0,0,0}
         if (axis == Vector3.zero)
             return false;
 
@@ -93,7 +93,6 @@ public class ObbCollisionDetection : MonoBehaviour
         var bMin = float.MaxValue;
         var bMax = float.MinValue;
 
-        // Define two intervals, a and b. Calculate their min and max values
         for (var i = 0; i < 8; i++)
         {
             var aDist = Vector3.Dot(vertsA[i], axis);
@@ -104,10 +103,10 @@ public class ObbCollisionDetection : MonoBehaviour
             bMax = bDist > bMax ? bDist : bMax;
         }
 
-        // One-dimensional intersection test between a and b
+        // test przecięcia
         var longSpan = Mathf.Max(aMax, bMax) - Mathf.Min(aMin, bMin);
         var sumSpan = aMax - aMin + bMax - bMin;
-        return longSpan >= sumSpan; // > to treat touching as intersection
+        return longSpan >= sumSpan; // > aby traktowac dotykanie jak kolizje
     }
 }
 
