@@ -44,5 +44,11 @@ public class ShackingAnimation : MonoBehaviour
         this.weaponHide = !this.weaponHide;
     }
 
+    if(Input.GetMouseButtonDown(1)) {
+        animator.SetBool("WeaponBlock", true);
+    }
+    if(Input.GetMouseButtonUp(1)) {
+        animator.SetBool("WeaponBlock", false);
+    }
   }
 }

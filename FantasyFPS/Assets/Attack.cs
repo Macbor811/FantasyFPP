@@ -107,7 +107,12 @@ public class Attack : MonoBehaviour, IHittable
 
     public void OnHit(DealDamage damage)
     {
-        healthPoints -= damage.damage;
+        if(Input.GetMouseButton(1)) {
+            healthPoints -= (damage.damage - Random.Range(0, damage.damage));
+        } else {
+            healthPoints -= damage.damage;
+        }
+          
         hpText.text = "HP: " + healthPoints;
         if (healthPoints <= 0)
         {
