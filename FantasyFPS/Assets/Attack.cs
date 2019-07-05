@@ -14,7 +14,10 @@ public class Attack : MonoBehaviour, IHittable
     private DealDamage damage;
     bool damageDealt = false;
     public int healthPoints = 100;
+    public int manaPoints = 100;
     public Text hpText;
+    float manaRegen = 0.0f;
+    float hpRegen = 0.0f;
     //private Obb obb;
 
     private int chosenWeapon = 1;
@@ -23,7 +26,7 @@ public class Attack : MonoBehaviour, IHittable
     {
         weaponAnimator = weaponHolder.GetComponent<Animator>();
         damage = weaponHolder.GetComponentInChildren<DealDamage>();
-        hpText.text = "HP: " + healthPoints;
+        hpText.text = "HP: " + healthPoints + "    Mana: " + manaPoints;
     }
 
     void CheckCollisions(DealDamage damageSource)
@@ -50,6 +53,21 @@ public class Attack : MonoBehaviour, IHittable
     // Update is called once per frame
     void Update()
     {
+        this.manaRegen += Time.deltaTime;
+        this.hpRegen += Time.deltaTime;
+        if(this.hpRegen > 5.0f) {
+            if(healthPoints < 100) {
+                healthPoints++;
+            }
+            this.hpRegen = 0.0f;
+        }
+        if( this.manaRegen > 1.0f) {
+            if(this.manaPoints < 100) {
+                 this.manaPoints++;
+                 hpText.text = "HP: " + healthPoints + "    Mana: " + manaPoints;
+            }
+             this.manaRegen = 0.0f;
+        }
         //if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         //{
         //    damage.IsActive = true;
@@ -98,7 +116,11 @@ public class Attack : MonoBehaviour, IHittable
     private void Attack2()
     {
         //Debug.Log("Instantied with: " + transform.rotation + " " + transform.position);
-        Instantiate(MagicProjectile, transform.position, transform.rotation);
+        if(this.manaPoints > 20) {
+            this.manaPoints -= 20;
+            hpText.text = "HP: " + healthPoints + "    Mana: " + manaPoints;
+            Instantiate(MagicProjectile, transform.position, transform.rotation);
+        }
     }
     private void Attack3()
     {
@@ -113,7 +135,7 @@ public class Attack : MonoBehaviour, IHittable
             healthPoints -= damage.damage;
         }
           
-        hpText.text = "HP: " + healthPoints;
+        hpText.text = "HP: " + healthPoints + "    Mana: " + manaPoints;
         if (healthPoints <= 0)
         {
             gameOverScreen.SetActive(true);
